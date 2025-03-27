@@ -56,10 +56,10 @@ public class DesignController {
                                           .collect(Collectors.toList());
                      }
 
-    // @PostMapping
-    // public String processDesign(Design design){
-    //     log.info("Processing design: " + design);
-    //     return "redirect:/orders/current";
-    // }
+    @PostMapping
+    public String processDesign(Design design){
+        log.info("Processing design: " + design);
+        return "redirect:/orders/current";
+    }
     
 }

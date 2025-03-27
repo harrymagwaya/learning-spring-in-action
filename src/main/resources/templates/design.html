@@ -11,7 +11,7 @@
 <body>
     <body>
         <h1>Design your taco!</h1>
-        <img th:src="@{/static/images/Food-Taco-Cloud-Style-Graphics-9428700-2-580x387.png}" alt="taco">
+        <img th:src="@{/images/Food-Taco-Cloud-Style-Graphics-9428700-2-580x387.png}" alt="taco" />
         <form action="POST" th:object="${design}">
             <div class="grid">
                 <div class="ingredient" id="wraps">
@@ -32,7 +32,7 @@
                 <div class="ingredient-group" id="veggies">
                     <h3>Pick your veggies</h3>
                     <div th:each="ingredient : ${veggies}">
-                        <input name="ingredients" type="checkbox" th:value="${ingredient.id}">
+                        <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
                         <span th:text="${ingredient.name}">INGREDIENT</span>
                     </div>
                 </div>
