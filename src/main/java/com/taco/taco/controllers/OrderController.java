@@ -2,27 +2,20 @@ package com.taco.taco.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.taco.taco.data.Order;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
-
-    private final HomeController homeController;
-
-    private final DesignController designController;
-
-    OrderController(DesignController designController, HomeController homeController) {
-        this.designController = designController;
-        this.homeController = homeController;
-    }
     
     @GetMapping
     public String orderForm(Model model){
@@ -31,7 +24,10 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(Order order){
+    public String processOrder(@Valid Order order, Errors errors){
+        if (errors.hasErrors()) {
+            return "orderForm";
+        }
         log.info("order submitted" + order);
         return "redirect:/";
     }
