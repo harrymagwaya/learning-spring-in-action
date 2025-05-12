@@ -1,10 +1,12 @@
 package com.taco.taco.data;
 
 import jakarta.validation.constraints.*;
+
+import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
-import lombok.NonNull;
+
 
 @Data
 public class Taco {
@@ -14,4 +16,11 @@ public class Taco {
     private String name;
     @Size(min = 1, message = "You should choose atleast 1 ingredient")
     private List<String> ingredients;
+
+    @NotNull
+    private long id;
+
+    private Date createdAt;
+    
+
 }
