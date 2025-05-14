@@ -48,14 +48,19 @@ public class JdbcIngredientRepository implements IngredientRepository {
         }, id);
     }
 
-    
     @Override
-    public Ingredient save(Ingredient ingredient) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public Ingredient save(Ingredient ingredient){
+
+        jdbc.update("insert into ingredient (id, name, type) values (?,?,?)",  
+        ingredient.getId(),
+        ingredient.getName(),
+        ingredient.getType());
+
+        return ingredient;
     }
 
     private  Ingredient mapRowToIngredient(ResultSet rs , int row) throws SQLException{
+
          return new Ingredient(
             rs.getString("id"),
             rs.getString("name"),
