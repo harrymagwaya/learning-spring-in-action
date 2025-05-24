@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.taco.taco.data.Ingredient;
+import com.taco.taco.data.Order;
 import com.taco.taco.data.Taco;
 import com.taco.taco.data.Ingredient.Type;
 import com.taco.taco.data.models.IngredientRepository;
+import com.taco.taco.data.repositories.TacoRepository;
 
 import jakarta.validation.Valid;
 
@@ -31,9 +34,12 @@ public class DesignController {
 
     private final IngredientRepository ingredientRepo;
 
+    private TacoRepository designRepo;
+
     @Autowired
-    public DesignController(IngredientRepository ingredientRepository) {
+    public DesignController(IngredientRepository ingredientRepository, TacoRepository designRepo) {
         this.ingredientRepo = ingredientRepository;
+        this.designRepo = designRepo;
     }
 
     @GetMapping
@@ -67,14 +73,38 @@ public class DesignController {
                                     .collect(Collectors.toList());
             }
 
+            @ModelAttribute(name = "order")
+            public Order order() {
+                return new Order();
+            }
+
+            @ModelAttribute(name = "taco")
+            public Taco taco() {
+                return new Taco();
+            }       
+
     @PostMapping
-    public String processDesign(@Valid Taco design, Errors errors ){
-        if (errors.hasErrors()) {
-            return "design";
-        }
-        log.info("Processing design: " + design);
-        return "redirect:/orders/current";
+    public String processDesign(
+        @Valid Taco design, 
+        Errors errors,
+        @ModelAttribute Order order ){
+
+
+            if (errors.hasErrors()) {
+                return "design";
+            }
+
+            Taco savedTaco = designRepo.save(design);
+
+            order.addDesign(savedTaco);
+
+            log.info("Processing design: " + design);
+            return "redirect:/orders/current";
     }
+
+
+  
+
     
     
 }
