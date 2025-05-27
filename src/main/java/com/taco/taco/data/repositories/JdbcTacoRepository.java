@@ -13,6 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import com.taco.taco.data.Ingredient;
 import com.taco.taco.data.Taco;
+import com.taco.taco.data.models.TacoRepository;
 
 public class JdbcTacoRepository implements TacoRepository{
     

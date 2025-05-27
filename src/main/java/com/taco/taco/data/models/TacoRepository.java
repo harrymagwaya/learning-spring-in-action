@@ -1,4 +1,4 @@
-package com.taco.taco.data.repositories;
+package com.taco.taco.data.models;
 
 import com.taco.taco.data.Taco;
 

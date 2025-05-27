@@ -21,7 +21,7 @@ import com.taco.taco.data.Order;
 import com.taco.taco.data.Taco;
 import com.taco.taco.data.Ingredient.Type;
 import com.taco.taco.data.models.IngredientRepository;
-import com.taco.taco.data.repositories.TacoRepository;
+import com.taco.taco.data.models.TacoRepository;
 
 import jakarta.validation.Valid;
 
