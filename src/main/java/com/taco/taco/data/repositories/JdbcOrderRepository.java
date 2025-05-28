@@ -43,9 +43,9 @@ public class JdbcOrderRepository  implements OrderRepository{
     }
     
     private long saveOrderDetails(Order order){
-        
-        Map <String, Object> values = objectMapper.convertValue(order, Map.class);
-        values.put("placedAt", order.getPlacedAt());
+        @SuppressWarnings("unchecked")
+        Map <String, Object> values = objectMapper.convertValue(order, Map.class); // used to convert an obj to a map
+        values.put("placedAt", order.getPlacedAt()); // placed at values will be the values
 
         long orderId = ordeInserter.executeAndReturnKey(values)
                                     .longValue();
@@ -53,6 +53,7 @@ public class JdbcOrderRepository  implements OrderRepository{
     }
 
     private void saveTacoToOrder(Taco taco, long orderId){
+       
         Map <String , Object> values = new HashMap<>();
         values.put("tacoOrder", orderId);
         values.put("taco", taco.getId());
